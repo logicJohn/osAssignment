@@ -1,15 +1,15 @@
-//Johnnie Hernandez
+// Johnnie Hernandez & Malik Hill
 
-#include <thread>
 #include <iostream>
+#include <thread>
 #include <list>
 #include <iterator>
 
 using namespace std;
 
-double avg = 0;
-double maxValue = 0;
-double minValue = 0;
+double avgValue = 0;
+int maxValue = 0;
+int minValue = 0;
 
 // Returns the average of all ints in given list
 void average(list<int> listOfNumbers);
@@ -27,23 +27,26 @@ int main () {
     list<int> listOfNum;
     
     do {
-        printf( "Enter number");
+        printf( "Enter number\n");
         scanf("%d", &temp);
+        if( temp > 0 ) {
+            listOfNum.push_back(temp);
+        }
     } while (temp >= 0);
 
     //call three threads
-    thread th1(average, 3);
+    thread th1 (average, listOfNum);
+    thread th2 (minimumList, listOfNum);
+    thread th3 (maximumList, listOfNum);
 
-    thread th2(minimumList, 3);
-
-    thread th3(maximumList, 3);
-
+    //wait for threads
     th1.join();
     th2.join();
     th3.join();
 
-    printf("The program will report:\n");
-    printf("The average value is: %d\n", avg);
+    //print avg, min, max
+    
+    printf("The average value is: %f\n", avgValue);
     printf("THe minimum value is: %d\n", minValue);
     printf("The maximum value is: %d\n", maxValue);
     
@@ -51,23 +54,20 @@ int main () {
 }
 
 void average(list<int> listOfNumbers) {
-    int sum = 0;
-    for (list<int>::iterator it = listOfNumbers.begin(); it != listOfNumbers.end(); ++it) {
+    double sum = 0;
+    
+    for (auto it = listOfNumbers.begin(); it != listOfNumbers.end(); ++it) {
         sum = sum + *it;
     }
-    avg = sum/listOfNumbers.size();
-
-    return;
+    avgValue = sum/listOfNumbers.size();
 }
 
 void minimumList(list<int> listOfNumbers) {
     listOfNumbers.sort();
     minValue = listOfNumbers.front();
-    return;
 }
 
 void maximumList(list<int> listOfNumbers) {
     listOfNumbers.sort();
     maxValue = listOfNumbers.back();
-    return;
 }

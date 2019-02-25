@@ -1,4 +1,5 @@
-// Johnnie Hernandez
+// Johnnie Hernandez & Malik Hill
+
 //  CSCI 3000
 
 //Program sends "Hello there!" to server, where server responds with "Hello there!"
@@ -29,14 +30,14 @@ public class Client {
             System.out.println(i);
         }
 
-        // string to read message from input
-        String line = "";
+        // temp storage for read
+        String temp = "";
 
-        // keep reading until "Over" is input
-        while (!line.equals("Over")) {
+        // keep reading until "-1" is input
+        while (!temp.equals("-1")) {
             try {
-                line = input.readLine();
-                out.writeUTF(line);
+                temp = input.readLine();
+                out.writeUTF(temp);
             } catch (IOException i) {
                 System.out.println(i);
             }

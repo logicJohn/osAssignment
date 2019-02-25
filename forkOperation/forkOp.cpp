@@ -1,7 +1,8 @@
+// Johnnie Hernandez & Malik Hill
 
 #include <iostream>
 #include <stdio.h>
-#include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 using namespace std;
@@ -15,20 +16,22 @@ void forkCalc(int x) {
         } else {
             temp = (temp*3) + 1;
         }
-        printf("%d", temp);
+        printf(" %d ", temp);
     }
+    printf("\n");
 }
 
 int main () {
 
     int temp;
-    printf("Input integer");
+    printf("Input integer\n");
     scanf("%d", &temp);
     if ( fork() == 0 ) {
+        //Child Process
         forkCalc(temp);
         exit(0);
     } else {
         wait(NULL);
     }
-    return 1;
+    return 0;
 }

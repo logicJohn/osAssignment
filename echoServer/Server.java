@@ -24,13 +24,13 @@ public class Server {
             // takes input from the client socket
             in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
-            String line = "";
+            String temp = "";
 
             // reads message from client until "Over" is sent
-            while (!line.equals("Over")) {
+            while (!temp.equals("-1")) {
                 try {
-                    line = in.readUTF();
-                    System.out.println(line);
+                    temp = in.readUTF();
+                    System.out.println(temp);
 
                 } catch (IOException i) {
                     System.out.println(i);
