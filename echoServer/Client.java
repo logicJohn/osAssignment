@@ -1,5 +1,4 @@
 // Johnnie Hernandez & Malik Hill
-
 //  CSCI 3000
 
 //Program sends "Hello there!" to server, where server responds with "Hello there!"
@@ -11,6 +10,7 @@ public class Client {
     private Socket socket = null;
     private DataInputStream input = null;
     private DataOutputStream out = null;
+    private DataInputStream in = null;
 
     // construct ip:port
     public Client(String address, int port) {
@@ -23,7 +23,9 @@ public class Client {
             input = new DataInputStream(System.in);
 
             // sends output to the socket
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             out = new DataOutputStream(socket.getOutputStream());
+
         } catch (UnknownHostException u) {
             System.out.println(u);
         } catch (IOException i) {
@@ -34,10 +36,16 @@ public class Client {
         String temp = "";
 
         // keep reading until "-1" is input
-        while (!temp.equals("-1")) {
+        while (!temp.equals(".exit")) {
             try {
                 temp = input.readLine();
                 out.writeUTF(temp);
+            } catch (IOException i) {
+                System.out.println(i);
+            }
+            try {
+                temp = in.readUTF();
+                System.out.println(temp);
             } catch (IOException i) {
                 System.out.println(i);
             }

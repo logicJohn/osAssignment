@@ -1,4 +1,4 @@
-// Johnnie Hernandez
+// Johnnie Hernandez & Malik Hill
 //  CSCI 3000
 
 //Program receives "Hello there!" to server, then responds with "Hello there!"
@@ -10,6 +10,7 @@ public class Server {
     private Socket socket = null;
     private ServerSocket server = null;
     private DataInputStream in = null;
+    private DataOutputStream out = null;
 
     // constructor with port
     public Server(int port) {
@@ -23,11 +24,11 @@ public class Server {
 
             // takes input from the client socket
             in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-
+            out = new DataOutputStream(socket.getOutputStream());
             String temp = "";
 
             // reads message from client until "Over" is sent
-            while (!temp.equals("-1")) {
+            while (!temp.equals(".exit")) {
                 try {
                     temp = in.readUTF();
                     System.out.println(temp);
@@ -36,12 +37,18 @@ public class Server {
                     System.out.println(i);
 
                 }
+                try {
+                    out.writeUTF(temp);
+                } catch (IOException i) {
+                    System.out.println(i);
+                }
             }
             System.out.println("Closing connection");
 
             // close connection
             socket.close();
             in.close();
+            out.close();
         } catch (IOException i) {
             System.out.println(i);
         }

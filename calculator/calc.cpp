@@ -1,5 +1,5 @@
 // Johnnie Hernandez & Malik Hill
-
+//  CSCI 3000
 #include <iostream>
 #include <thread>
 #include <list>
@@ -11,11 +11,11 @@ double avgValue = 0;
 int maxValue = 0;
 int minValue = 0;
 
-// Returns the average of all ints in given list
+// Sets avgValue to the average of all ints in given list
 void average(list<int> listOfNumbers);
-// Returns the smallest number in the list of ints
+// Sets maxValue to the smallest number in the list of ints
 void minimumList(list<int> listOfNumbers);
-// Returns the largest number in the list of ints
+// Sets minValue to the largest number in the list of ints
 void maximumList(list<int> listOfNumbers);
 
 int main () {
@@ -23,7 +23,7 @@ int main () {
     int temp;
     //prompt user to enter a line of numbers
     cout << "insert a set of integers" << endl;
-    // store numbers in list
+    // store numbers into integer list
     list<int> listOfNum;
     
     do {
